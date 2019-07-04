@@ -147,6 +147,8 @@ int main()
 		mostrarMensaje(mensaje, n);
 		verificarMensaje(mensaje, n, contfrio, contcalor, conthambre);
 
+
+		delete[] mensaje;
 		do
 		{
 			cout << " Presione 'T' para mostrar resumen o 'C' para continuar viendo los mensajes " << endl;
