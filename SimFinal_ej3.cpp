@@ -85,7 +85,7 @@ void DibujarEnemigo(int &PosXE, int &PosYE, int &DireE)
 
 }
 
-void desplazar_movil(int **mapa,char tecla,  int &PosX, int& PosY, int &PosXE, int &PosYE, int &DireE, int &PosXInicial, int &PosYInicial, int &comida)
+void desplazar_movil(int **mapa,char tecla,  int &PosX, int& PosY, int &PosXE, int &PosYE, int &DireE, int &PosXInicial, int &PosYInicial, int &comida, int &valor)
 {
 	
 	DibujarMovil(PosX, PosY);
@@ -93,24 +93,30 @@ void desplazar_movil(int **mapa,char tecla,  int &PosX, int& PosY, int &PosXE, i
 
 	if (kbhit())
 	{
+	
+		
 		tecla = _getch();
 		if (tecla == 77) {
+			valor = 1;
 			BorrarMovil(PosX, PosY);
 			PosX++;
 		}
 		else {
 			if (tecla == 75) {
+				valor = 1;
 				BorrarMovil(PosX, PosY);
 				PosX--;
 			}
 			else {
 				if (tecla == 72) {
+					valor = 1;
 					BorrarMovil(PosX, PosY);
 					PosY--;
 
 				}
 				else {
 					if (tecla == 80) {
+						valor = 1;
 						BorrarMovil(PosX, PosY);
 						PosY++;
 
@@ -132,7 +138,12 @@ void desplazar_movil(int **mapa,char tecla,  int &PosX, int& PosY, int &PosXE, i
 		PosY = PosYInicial;
 
 	}
-	
+	if (mapa[PosY][PosX] == 2 && valor == 1)
+	{
+		comida--;
+		
+		valor = 0;
+	}
 	
 	
 	DibujarMovil(PosX, PosY);
@@ -177,6 +188,8 @@ int main()
 	int PosXInicial = PosX;
 	int PosYInicial = PosY;
 
+	int valor = 0;
+
 	genera_y_muestra_matriz(mapa);
 	
 
@@ -186,7 +199,8 @@ int main()
 		Console::BackgroundColor = ConsoleColor::Black;
 		
 		
-		desplazar_movil(mapa, tecla,PosX, PosY, PosXE, PosYE, DireE, PosXInicial, PosYInicial, comida);
+		desplazar_movil(mapa, tecla,PosX, PosY, PosXE, PosYE, DireE, PosXInicial, PosYInicial, comida, valor);
+		valor = 0;
 			
 		if (comida == 0)
 		{
